@@ -66,10 +66,10 @@ Every session. Every logout. Every time.
 - GitHub-style contribution heatmap per habit
 - 30-day consistency percentage per habit
 - Streak leaderboard across all habits
-- Category filtering — Spiritual, Fitness, Health, Wellness, Growth, Productivity
+- Category filtering  Spiritual, Fitness, Health, Wellness, Growth, Productivity
 
 ### Journal & Reflection
-- Daily reflection entry — achievements, feelings, struggles
+- Daily reflection entry  achievements, feelings, struggles
 - Mood tracker — happy, neutral, sad
 - Link reflections to habits you completed that day
 - Weekly mood summary and reflection streak
