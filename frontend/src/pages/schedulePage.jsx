@@ -193,7 +193,7 @@ function ScheduleView({ type }) {
               Cancel
             </button>
             <button onClick={handleAdd} className="btn-primary flex-1">
-              Add Task 
+              Add Task
             </button>
           </div>
         </div>
