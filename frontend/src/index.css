@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  }
+  .dark body {
+    @apply bg-[#0f1117] text-gray-100;
+  }
+  [data-empty="true"] {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white dark:bg-[#161b27] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r from-brand-500 to-purple-500 text-white font-bold rounded-xl px-5 py-2.5
+           hover:opacity-90 active:scale-95 transition-all duration-150 shadow-md shadow-indigo-200 dark:shadow-none;
+  }
+  .btn-ghost {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold rounded-xl px-5 py-2.5
+           hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-150;
+  }
+  .input {
+    @apply w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700
+           bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100
+           focus:outline-none focus:ring-2 focus:ring-brand-500 transition;
+  }
+  .label {
+    @apply block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5;
+  }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-700 rounded-full; }
