@@ -191,7 +191,7 @@ streakflow/
 ### 1. Clone the project
 
 ```bash
-git clone https://github.com/yourusername/streakflow.git
+git clone https://github.com/gracequaye1/streakflow.git
 cd streakflow
 ```
 
@@ -207,7 +207,7 @@ Create a `.env` file inside the `backend` folder:
 ```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/streakflow
-JWT_SECRET=your_secret_key_here
+JWT_SECRET=supersecretkey123
 NODE_ENV=development
 ```
 
