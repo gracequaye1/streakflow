@@ -1,7 +1,7 @@
-const express    = require('express');
-const cors       = require('cors');
-const dotenv     = require('dotenv');
-const connectDB  = require('./config/db');
+const express   = require('express');
+const cors      = require('cors');
+const dotenv    = require('dotenv');
+const connectDB = require('./config/db');
 
 dotenv.config();
 connectDB();
@@ -9,43 +9,21 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://streakflow-rho.vercel.app",
-    "https://streakflow-jpyz.onrender.com",
-  ],
-  credentials: true,
+  origin: "*",
+  credentials: false,
 }));
 
 app.use(express.json());
 
-// Routes
-const authRoutes       = require('./routes/authRoutes');
-const habitRoutes      = require('./routes/habitRoutes');
-const scheduleRoutes   = require('./routes/scheduleRoutes');
-const reflectionRoutes = require('./routes/reflectionRoutes');
-const challengeRoutes  = require('./routes/challengeRoutes');
-const timetableRoutes  = require('./routes/timetableRoutes');
-
-app.use('/api/auth',        authRoutes);
-app.use('/api/habits',      habitRoutes);
-app.use('/api/schedule',    scheduleRoutes);
-app.use('/api/reflections', reflectionRoutes);
-app.use('/api/challenges',  challengeRoutes);
+app.use('/api/auth',        require('./routes/authRoutes'));
+app.use('/api/habits',      require('./routes/habitRoutes'));
+app.use('/api/reflections', require('./routes/reflectionRoutes'));
+app.use('/api/challenges',  require('./routes/challengeRoutes'));
 app.use('/api/timetable',   require('./routes/timetableRoutes'));
+app.use('/api/schedule',    require('./routes/scheduleRoutes'));
 
-// Health check
-app.get('/',          (req, res) => res.json({ message: 'StreakFlow API running' }));
-app.get('/api/health',(req, res) => res.json({ status: 'ok' }));
-
-// Keep Render from sleeping
-if (process.env.NODE_ENV === 'production') {
-  setInterval(() => {
-    fetch(`https://streakflow-jpyz.onrender.com/api/health`)
-      .then(() => console.log('Keep-alive ping sent'))
-      .catch(() => {});
-  }, 14 * 60 * 1000);
-}
+app.get('/',           (req, res) => res.json({ message: 'StreakFlow API running' }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
