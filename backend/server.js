@@ -24,11 +24,15 @@ const authRoutes       = require('./routes/authRoutes');
 const habitRoutes      = require('./routes/habitRoutes');
 const scheduleRoutes   = require('./routes/scheduleRoutes');
 const reflectionRoutes = require('./routes/reflectionRoutes');
+const challengeRoutes  = require('./routes/challengeRoutes');
+const timetableRoutes  = require('./routes/timetableRoutes');
 
 app.use('/api/auth',        authRoutes);
 app.use('/api/habits',      habitRoutes);
 app.use('/api/schedule',    scheduleRoutes);
 app.use('/api/reflections', reflectionRoutes);
+app.use('/api/challenges',  challengeRoutes);
+app.use('/api/timetable',   require('./routes/timetableRoutes'));
 
 // Health check
 app.get('/',          (req, res) => res.json({ message: 'StreakFlow API running' }));

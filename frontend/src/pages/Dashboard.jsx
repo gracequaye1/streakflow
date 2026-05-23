@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TimetablePage from "../pages/TimetablePage";
 import Navbar from "../components/Navbar";
 import HabitCard from "../components/HabitCard";
 import SkeletonCard from "../components/SkeletonCard";
@@ -8,6 +9,7 @@ import { TodayReflection, WeeklySummary, JournalHistory } from "../components/Da
 import { useHabits } from "../hooks/useHabits";
 import { useReminders } from "../hooks/useReminders";
 import toast from "react-hot-toast";
+import ChallengePage from "../pages/ChallengePage";
 
 const CATEGORIES = ["All","Spiritual","Fitness","Health","Wellness","Growth","Productivity"];
 const QUOTES = [
@@ -462,6 +464,8 @@ export default function Dashboard() {
 
         {/* ── SCHEDULE TAB ── */}
         {tab === "schedule" && <SchedulePage />}
+        {tab === "challenges" && <ChallengePage />}
+        {tab === "timetable" && <TimetablePage />}
 
       </main>
       <Footer />

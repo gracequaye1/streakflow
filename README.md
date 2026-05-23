@@ -292,14 +292,17 @@ Then register your account and start tracking.
 - [x] Analytics dashboard
 - [x] Daily journal and mood tracker
 - [x] Schedule planner
+- [x] Challenge Mode with check-ins
+- [x] XP and badge reward system
+- [x] School timetable planner
+- [x] Personal study planner
 - [x] Dark mode
 - [x] Mobile responsive design
 - [x] JWT authentication
-- [x] Daily reminders
-- [ ] Deploy to Render + Vercel
+- [x] Deployed on Vercel and Render
 - [ ] Export progress as PDF
 - [ ] Mobile app version
-- [ ] AI-generated weekly reflection summary
+- [ ] AI weekly summary
 - [ ] Multiplayer streak challenges
 
 ---

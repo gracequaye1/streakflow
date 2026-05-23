@@ -27,6 +27,8 @@ export default function Navbar({ tab, setTab }) {
     { id: "analytics", icon: "📈", label: "Stats"    },
     { id: "schedule",  icon: "📅", label: "Schedule" },
     { id: "journal",    icon: "📓", label: "Journal" },
+    { id: "challenges", icon: "🎯", label: "Challenges" },
+    { id: "timetable",  icon: "🗓️", label: "Timetable" },
   ];
 
   return (
