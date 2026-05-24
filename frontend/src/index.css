@@ -40,3 +40,17 @@
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-700 rounded-full; }
+
+/* Hide scrollbar but keep scroll */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area for mobile bottom nav */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}

@@ -73,11 +73,13 @@ function HabitModal({ habit, onSave, onDelete, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center
+                 pt-16 pb-24 px-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="card w-full max-w-md p-7 animate-slide-up"
+        className="card w-full max-w-md p-6 animate-slide-up
+                   max-h-[88vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
@@ -90,7 +92,7 @@ function HabitModal({ habit, onSave, onDelete, onClose }) {
         <div className="space-y-4">
           {[
             { label: "Name",        key: "name",        placeholder: "e.g. Morning Run" },
-            { label: "Icon",        key: "icon",        placeholder: "e.g. star, sun" },
+            { label: "Icon",        key: "icon",        placeholder: "e.g. star, sun"   },
             { label: "Description", key: "description", placeholder: "What is this habit?" },
           ].map(f => (
             <div key={f.key}>
@@ -129,9 +131,12 @@ function HabitModal({ habit, onSave, onDelete, onClose }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
+          <div className="flex items-center justify-between p-3 rounded-xl
+                          bg-gray-50 dark:bg-gray-800">
             <div>
-              <div className="text-sm font-semibold text-gray-800 dark:text-white">Daily Reminder</div>
+              <div className="text-sm font-semibold text-gray-800 dark:text-white">
+                Daily Reminder
+              </div>
               <div className="text-xs text-gray-400">Get notified at a set time</div>
             </div>
             <input
@@ -177,7 +182,6 @@ function HabitModal({ habit, onSave, onDelete, onClose }) {
   );
 }
 
-// ─── Main Dashboard ────────────────────────────────────────────────────────
 export default function Dashboard() {
   const { habits, loading, toggleToday, createHabit, updateHabit, deleteHabit } = useHabits();
   useReminders(habits);
@@ -186,11 +190,11 @@ export default function Dashboard() {
   const [filterCat, setFilter] = useState("All");
   const [modal, setModal]      = useState(null);
 
-  const quote   = QUOTES[new Date().getDay() % QUOTES.length];
-  const today   = new Date().toISOString().split("T")[0];
+  const quote     = QUOTES[new Date().getDay() % QUOTES.length];
+  const today     = new Date().toISOString().split("T")[0];
   const todayDone = habits.filter(h => h.completionHistory?.[today]).length;
-  const pct     = habits.length ? Math.round((todayDone / habits.length) * 100) : 0;
-  const filtered = filterCat === "All" ? habits : habits.filter(h => h.category === filterCat);
+  const pct       = habits.length ? Math.round((todayDone / habits.length) * 100) : 0;
+  const filtered  = filterCat === "All" ? habits : habits.filter(h => h.category === filterCat);
 
   const handleSeed = async () => {
     for (const h of DEFAULT_HABITS) await createHabit(h);
@@ -237,47 +241,60 @@ export default function Dashboard() {
           <div className="space-y-5 animate-fade-in">
 
             {/* Quote banner */}
-            <div className="relative overflow-hidden rounded-2xl p-6 text-white bg-gradient-to-br from-brand-500 to-purple-600">
+            <div className="relative overflow-hidden rounded-2xl p-6 text-white
+                            bg-gradient-to-br from-brand-500 to-purple-600">
               <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/10" />
-              <p className="font-semibold text-base italic leading-relaxed max-w-md">"{quote.text}"</p>
-              <p className="text-sm mt-2 opacity-70">— {quote.author}</p>
+              <p className="font-semibold text-base italic leading-relaxed max-w-md relative z-10">
+                "{quote.text}"
+              </p>
+              <p className="text-sm mt-2 opacity-70 relative z-10">— {quote.author}</p>
             </div>
 
-            {/* Progress ring card */}
+            {/* Progress ring */}
             <div className="card p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="font-extrabold text-lg text-gray-900 dark:text-white">Today's Progress</h2>
+                  <h2 className="font-extrabold text-lg text-gray-900 dark:text-white">
+                    Today's Progress
+                  </h2>
                   <p className="text-sm text-gray-400">
-                    {new Date().toLocaleDateString("en", { weekday:"long", month:"long", day:"numeric" })}
+                    {new Date().toLocaleDateString("en", {
+                      weekday: "long", month: "long", day: "numeric"
+                    })}
                   </p>
                 </div>
                 <div className="relative w-16 h-16">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 64 64">
                     <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor"
                       className="text-gray-100 dark:text-gray-800" strokeWidth="6" />
-                    <circle cx="32" cy="32" r="28" fill="none" stroke="#6366f1" strokeWidth="6"
-                      strokeLinecap="round"
+                    <circle cx="32" cy="32" r="28" fill="none" stroke="#6366f1"
+                      strokeWidth="6" strokeLinecap="round"
                       strokeDasharray={`${pct * 1.759} 175.9`}
                       className="transition-all duration-700" />
                   </svg>
-                  <div className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-brand-500">
+                  <div className="absolute inset-0 flex items-center justify-center
+                                  text-sm font-extrabold text-brand-500">
                     {pct}%
                   </div>
                 </div>
               </div>
               <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2.5 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-brand-500 to-purple-500 rounded-full transition-all duration-700"
+                  className="h-full bg-gradient-to-r from-brand-500 to-purple-500
+                             rounded-full transition-all duration-700"
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              <p className="text-sm text-gray-400 mt-2">{todayDone} of {habits.length} habits completed</p>
+              <p className="text-sm text-gray-400 mt-2">
+                {todayDone} of {habits.length} habits completed
+              </p>
             </div>
 
             {/* Quick checklist */}
             <div className="card p-5">
-              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">Quick Check-in</h3>
+              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">
+                Quick Check-in
+              </h3>
               <div className="space-y-2">
                 {habits.map(h => {
                   const done = !!h.completionHistory?.[today];
@@ -285,11 +302,13 @@ export default function Dashboard() {
                     <div
                       key={h._id}
                       onClick={() => toggleToday(h._id)}
-                      className="flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      className="flex items-center gap-3 p-3 rounded-xl cursor-pointer
+                                 transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50"
                       style={{ background: done ? h.color + "11" : undefined }}
                     >
                       <div
-                        className="w-5 h-5 rounded-md flex items-center justify-center font-bold text-xs text-white transition-all"
+                        className="w-5 h-5 rounded-md flex items-center justify-center
+                                   font-bold text-xs text-white transition-all flex-shrink-0"
                         style={{
                           background: done ? h.color : "transparent",
                           border: `2px solid ${done ? h.color : "#d1d5db"}`
@@ -297,12 +316,14 @@ export default function Dashboard() {
                       >
                         {done ? "✓" : ""}
                       </div>
-                      <span className="text-lg">{h.icon}</span>
-                      <span className={`text-sm font-semibold ${done ? "line-through text-gray-400" : "text-gray-800 dark:text-gray-200"}`}>
+                      <span className="text-lg flex-shrink-0">{h.icon}</span>
+                      <span className={`text-sm font-semibold truncate
+                        ${done ? "line-through text-gray-400" : "text-gray-800 dark:text-gray-200"}`}>
                         {h.name}
                       </span>
                       {h.currentStreak > 0 && (
-                        <span className="ml-auto text-xs font-bold" style={{ color: h.color }}>
+                        <span className="ml-auto text-xs font-bold flex-shrink-0"
+                          style={{ color: h.color }}>
                           {h.currentStreak} streak
                         </span>
                       )}
@@ -323,18 +344,18 @@ export default function Dashboard() {
             {/* Heatmap */}
             {habits.length > 0 && (
               <div className="card p-5">
-                <h3 className="font-extrabold text-gray-900 dark:text-white mb-1">12-Week Overview</h3>
-                <p className="text-xs text-gray-400 mb-4">Combined completions across all habits</p>
+                <h3 className="font-extrabold text-gray-900 dark:text-white mb-1">
+                  12-Week Overview
+                </h3>
+                <p className="text-xs text-gray-400 mb-4">
+                  Combined completions across all habits
+                </p>
                 <FullHeatmap habits={habits} />
               </div>
             )}
 
-            {/* Today's reflection */}
             <TodayReflection habits={habits} />
-
-            {/* Weekly reflection summary */}
             <WeeklySummary />
-
           </div>
         )}
 
@@ -343,30 +364,34 @@ export default function Dashboard() {
           <div className="space-y-4 animate-fade-in">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="font-extrabold text-xl text-gray-900 dark:text-white">Your Habits</h2>
+                <h2 className="font-extrabold text-xl text-gray-900 dark:text-white">
+                  Your Habits
+                </h2>
                 <p className="text-sm text-gray-400">{habits.length} habits tracked</p>
               </div>
-              <button onClick={() => setModal("add")} className="btn-primary text-sm">+ Add</button>
+              <button onClick={() => setModal("add")} className="btn-primary text-sm">
+                + Add
+              </button>
             </div>
 
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
               {CATEGORIES.map(c => (
-                <button
-                  key={c}
-                  onClick={() => setFilter(c)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all border
+                <button key={c} onClick={() => setFilter(c)}
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold
+                              whitespace-nowrap transition-all border flex-shrink-0
                     ${filterCat === c
                       ? "bg-brand-500 text-white border-brand-500"
                       : "bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-brand-500"
-                    }`}
-                >
+                    }`}>
                   {c}
                 </button>
               ))}
             </div>
 
             {filtered.length === 0
-              ? <div className="card p-10 text-center text-gray-400">No habits in this category</div>
+              ? <div className="card p-10 text-center text-gray-400">
+                  No habits in this category
+                </div>
               : filtered.map(h => (
                   <HabitCard key={h._id} habit={h} onToggle={toggleToday} onEdit={setModal} />
                 ))
@@ -381,9 +406,9 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "Best Streak",  value: `${Math.max(...habits.map(h => h.longestStreak), 0)} days`, color: "text-red-500" },
-                { label: "Avg Streak",   value: `${habits.length ? Math.round(habits.reduce((a,h) => a + h.currentStreak, 0) / habits.length) : 0}d`, color: "text-brand-500" },
-                { label: "Total Habits", value: habits.length, color: "text-green-500" },
+                { label: "Best Streak",   value: `${Math.max(...habits.map(h => h.longestStreak), 0)} days`, color: "text-red-500"    },
+                { label: "Avg Streak",    value: `${habits.length ? Math.round(habits.reduce((a,h) => a + h.currentStreak, 0) / habits.length) : 0}d`, color: "text-brand-500" },
+                { label: "Total Habits",  value: habits.length, color: "text-green-500"  },
                 { label: "All-Time Done", value: habits.reduce((a,h) => a + h.totalCompleted, 0), color: "text-yellow-500" },
               ].map(s => (
                 <div key={s.label} className="card p-5 text-center">
@@ -394,21 +419,32 @@ export default function Dashboard() {
             </div>
 
             <div className="card p-5">
-              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">Streak Leaderboard</h3>
+              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">
+                Streak Leaderboard
+              </h3>
               {[...habits].sort((a,b) => b.currentStreak - a.currentStreak).map((h, i) => (
-                <div key={h._id} className="flex items-center gap-3 py-2.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
-                  <span className="w-6 text-center font-bold text-sm text-gray-400">{i + 1}</span>
+                <div key={h._id}
+                  className="flex items-center gap-3 py-2.5 border-b
+                             border-gray-100 dark:border-gray-800 last:border-0">
+                  <span className="w-6 text-center font-bold text-sm text-gray-400">
+                    {i + 1}
+                  </span>
                   <span className="text-lg">{h.icon}</span>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">{h.name}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">
+                      {h.name}
+                    </div>
                     <div className="mt-1 bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{ width: `${Math.min(100, (h.currentStreak / 30) * 100)}%`, background: h.color }}
-                      />
+                      <div className="h-full rounded-full transition-all duration-700"
+                        style={{
+                          width: `${Math.min(100, (h.currentStreak / 30) * 100)}%`,
+                          background: h.color
+                        }} />
                     </div>
                   </div>
-                  <span className="text-sm font-bold" style={{ color: h.color }}>{h.currentStreak} streak</span>
+                  <span className="text-sm font-bold flex-shrink-0" style={{ color: h.color }}>
+                    {h.currentStreak} streak
+                  </span>
                 </div>
               ))}
               {habits.length === 0 && (
@@ -417,24 +453,28 @@ export default function Dashboard() {
             </div>
 
             <div className="card p-5">
-              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">30-Day Consistency</h3>
+              <h3 className="font-extrabold text-gray-900 dark:text-white mb-4">
+                30-Day Consistency
+              </h3>
               {habits.map(h => {
                 const rate = Math.round(
                   Array.from({ length: 30 }, (_, i) =>
-                    h.completionHistory?.[new Date(Date.now() - i * 86400000).toISOString().split("T")[0]]
+                    h.completionHistory?.[
+                      new Date(Date.now() - i * 86400000).toISOString().split("T")[0]
+                    ]
                   ).filter(Boolean).length / 30 * 100
                 );
                 return (
                   <div key={h._id} className="mb-3 last:mb-0">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">{h.icon} {h.name}</span>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        {h.icon} {h.name}
+                      </span>
                       <span className="font-bold" style={{ color: h.color }}>{rate}%</span>
                     </div>
                     <div className="bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{ width: `${rate}%`, background: h.color }}
-                      />
+                      <div className="h-full rounded-full transition-all duration-700"
+                        style={{ width: `${rate}%`, background: h.color }} />
                     </div>
                   </div>
                 );
@@ -456,16 +496,18 @@ export default function Dashboard() {
             <TodayReflection habits={habits} />
             <WeeklySummary />
             <div>
-              <h3 className="font-bold text-gray-700 dark:text-gray-300 mb-3">Past Reflections</h3>
+              <h3 className="font-bold text-gray-700 dark:text-gray-300 mb-3">
+                Past Reflections
+              </h3>
               <JournalHistory />
             </div>
           </div>
         )}
 
-        {/* ── SCHEDULE TAB ── */}
-        {tab === "schedule" && <SchedulePage />}
+        {/* ── OTHER TABS ── */}
+        {tab === "schedule"   && <SchedulePage />}
         {tab === "challenges" && <ChallengePage />}
-        {tab === "timetable" && <TimetablePage />}
+        {tab === "timetable"  && <TimetablePage />}
 
       </main>
       <Footer />
